@@ -1,14 +1,9 @@
-from openai import OpenAI
+import random
 from db_config import get_connection
 
-client = OpenAI()
-
 def get_embedding(text):
-    response = client.embeddings.create(
-        model="text-embedding-3-small",
-        input=text
-    )
-    return response.data[0].embedding
+    random.seed(hash(text))
+    return [random.random() for _ in range(1536)]
 
 def store_embeddings():
     conn = get_connection()
